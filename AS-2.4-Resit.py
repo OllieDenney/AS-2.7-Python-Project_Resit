@@ -1,3 +1,8 @@
+import time
+
+studentData = [
+    ["name", 1, 36], ["name", 2, 36], ["name", 1, 36], ["name", 2, 36], ["name", 2, 36], ["name", 3, 36], ["name", 2, 36], ["name", 3, 36]
+]
 
 def start():
     print("--------------")
@@ -47,55 +52,76 @@ def start():
 
 def totalSummary():
     menuString = "create a total summary"
-    print("Total Summary")
-    print()
-    menuValidation(menuString)
-    print("yay")
+    menuReturnQuery(menuString)
+    for i in range(len(studentData)):
+        print("• ", studentData[i][0], ", NCEA Level", studentData[i][1], ",", studentData[i][2], "Credits")
+    time.sleep(5)
+    menuString = "remain in program"
+    menuReturnQuery(menuString)
+    
 
 def passSummary():
     menuString = "create a pass summary"
-    print("NCEA Pass Summary")
-    print()
-    menuValidation(menuString)
-    print("yay")
+    menuReturnQuery(menuString)
+    levelOneList = []
+    levelTwoList = []
+    levelThreeList = []
+    for i in range(len(studentData)):
+        if studentData[i][1] == 1:
+            levelOneList.append(studentData[i])
+            print(levelOneList)
+        elif studentData[i][1] == 2:
+            levelTwoList.append(studentData[i])
+            print(levelTwoList)
+        elif studentData[i][1] == 3:
+            levelThreeList.append(studentData[i])
+            print(levelThreeList)
+        print(levelOneList)
+        print(levelTwoList) #Console statement
+        print(levelThreeList)
+        for i in range(len(levelOneList)):
+            if levelOneList[i][2] < 60:
+                levelOneList.pop(levelOneList[i]) 
+            print(levelOneList)
+
 
 def yearSummary():
     menuString = "create a NCEA level summary"
-    print("NCEA Level Summary")
-    print()
-    menuValidation(menuString)
+    menuReturnQuery(menuString)
     print("yay")
 
 def addCredits():
-    menuString = "add cridts to student data"
-    print("Add Credits to Student Data")
-    print()
-    menuValidation(menuString)
+    menuString = "add credits to student data"
+    menuReturnQuery(menuString)
     print("yay")
 
 def addStudent():
     menuString = "add a new student"
-    print("Add New Student")
-    print()
-    menuValidation(menuString)
+    menuReturnQuery(menuString)
     print("yay")
 
 def removeStudents():
     menuString = "remove a student"
-    print("Remove Student")
-    print()
-    menuValidation(menuString)
+    menuReturnQuery(menuString)
     print("yay")
 
 def endProgram():
     menuString = "end program"
-    menuValidation(menuString)
-    print("yay")
+    menuReturnQuery(menuString)
+    print('\033c')  #Clears everything outputted above it
+    print('\x1bc')
+    print("Ended Program")
 
-def menuValidation(menuString):
+def menuReturnQuery(menuString):
+    if menuString == "remain in program":
+        queryString = "Do"
+    else:
+        queryString = "Are you sure"
     while True:
-        menuValid = input("Are you sure you want to {}: ".format(menuString)).lower()
+        menuValid = input("{} you want to {}: ".format(queryString, menuString)).lower()
         if menuValid == "no":
+            print('\033c')  #Clears everything outputted above it
+            print('\x1bc')
             start()
         elif menuValid == "yes":
             break

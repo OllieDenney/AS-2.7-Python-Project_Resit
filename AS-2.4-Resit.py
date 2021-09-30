@@ -1,7 +1,7 @@
 import time
 
 studentData = [
-    ["name", 1, 36], ["name", 2, 36], ["name", 1, 36], ["name", 2, 36], ["name", 2, 36], ["name", 3, 36], ["name", 2, 36], ["name", 3, 36]
+    ["name", 1, 70], ["name", 2, 66], ["name", 1, 36], ["name", 1, 84], ["name", 2, 36], ["name", 3, 36], ["name", 2, 86], ["name", 3, 96]
 ]
 
 def start():
@@ -12,11 +12,10 @@ def start():
     print("Menu:")
     print("[1] - Total NCEA Summary")
     print("[2] - NCEA Pass Summary")
-    print("[3] - NCEA Level Summary")
-    print("[4] - Add Credits to Student Data")
-    print("[5] - Add New Student")
-    print("[6] - Remove Student")
-    print("[7] - End Program")
+    print("[3] - Add Credits to Student Data")
+    print("[4] - Add New Student")
+    print("[5] - Remove Student")
+    print("[6] - End Program")
     while True:
         try:
             menuanswer = int(input("Enter the number of the menu item you would like to go to: "))
@@ -30,18 +29,15 @@ def start():
         print("NCEA Pass Summary selected")
         passSummary()
     elif menuanswer == 3:
-        print("NCEA Level Summary selected")
-        yearSummary()
-    elif menuanswer == 4:
         print("Add Credit to Student Data selected")
         addCredits()
-    elif menuanswer == 5:
+    elif menuanswer == 4:
         print("Add New Student selected")
         addStudent()
-    elif menuanswer == 6:
+    elif menuanswer == 5:
         print("Remove Student selected")
         removeStudents()
-    elif menuanswer == 7:
+    elif menuanswer == 6:
         print("End Program selected")
         endProgram()
     else:
@@ -55,9 +51,10 @@ def totalSummary():
     menuReturnQuery(menuString)
     for i in range(len(studentData)):
         print("• ", studentData[i][0], ", NCEA Level", studentData[i][1], ",", studentData[i][2], "Credits")
-    time.sleep(5)
-    menuString = "remain in program"
-    menuReturnQuery(menuString)
+    while True:
+        time.sleep(5)
+        menuString = "remain in program"
+        menuReturnQuery(menuString)
     
 
 def passSummary():
@@ -80,20 +77,37 @@ def passSummary():
         print(levelTwoList) #Console statement
         print(levelThreeList)
         for i in range(len(levelOneList)):
-            if levelOneList[i][2] < 60:
-                levelOneList.pop(levelOneList[i]) 
-            print(levelOneList)
-
-
-def yearSummary():
-    menuString = "create a NCEA level summary"
+            if levelOneList[i][2] < 80:
+                levelOneList.pop(i) 
+        for i in range(len(levelTwoList)):
+            if levelTwoList[i][2] < 60:
+                levelTwoList.pop(i) 
+        for i in range(len(levelThreeList)):
+            if levelThreeList[i][2] < 60:
+                levelThreeList.pop(i) 
+    passList = []
+    for i in range(len(levelOneList)):
+        name = (str(levelOneList[i][0]))
+        credits = (int(levelOneList[i][2]))
+        level = (int(levelOneList[i][1]))
+        print(name, "will pass level",level , "with", credits, "credits")
+    for i in range(len(levelTwoList)):
+        name = (str(levelTwoList[i][0]))
+        credits = (int(levelTwoList[i][2]))
+        level = (int(levelTwoList[i][1]))
+        print(name, "will pass level",level , "with", credits, "credits")
+    for i in range(len(levelThreeList)):
+        name = (str(levelThreeList[i][0]))
+        credits = (int(levelThreeList[i][2]))
+        level = (int(levelThreeList[i][1]))
+        print(name, "will pass level",level , "with", credits, "credits")
+    menuString = "remain in program"
     menuReturnQuery(menuString)
-    print("yay")
 
 def addCredits():
     menuString = "add credits to student data"
     menuReturnQuery(menuString)
-    print("yay")
+    
 
 def addStudent():
     menuString = "add a new student"
@@ -123,10 +137,14 @@ def menuReturnQuery(menuString):
             print('\033c')  #Clears everything outputted above it
             print('\x1bc')
             start()
-        elif menuValid == "yes":
+        elif menuValid == "yes" and menuString != "remain in program":
             break
+        elif menuValid == "yes" and menuString == "remain in program":
+            time.sleep(5)
+            menuReturnQuery(menuString)
         else:
             print("Please enter [yes] or [no]")
     return
+
 
 start()

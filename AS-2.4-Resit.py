@@ -1,7 +1,7 @@
 import time
 
 studentData = [
-    ["name", 1, 70], ["name", 2, 66], ["name", 1, 36], ["name", 1, 84], ["name", 2, 36], ["name", 3, 36], ["name", 2, 86], ["name", 3, 96]
+    ["john", 1, 70], ["sam", 2, 66], ["elise", 1, 36], ["zoe", 1, 84], ["Max", 2, 36], ["name2", 3, 36], ["name", 2, 86], ["Greg", 3, 96]
 ]
 
 def start():
@@ -107,7 +107,36 @@ def passSummary():
 def addCredits():
     menuString = "add credits to student data"
     menuReturnQuery(menuString)
+    for i in range(len(studentData)):
+        name = (str(studentData[i][0]))
+        print(i + 1, name)
+    findStudent = -1
+    validPrint = 0
+    while True:
+        if findStudent <= 0 or findStudent > len(studentData):
+            if validPrint == 1:
+                print("Please enter a number from the list")
+            while True:
+                try:
+                    findStudent = int(input("Enter the number of the student:"))
+                    break
+                except ValueError:
+                    print("Please enter a number from the list")
+            validPrint = 1
+        else:
+            break
+    print("process complete")
     
+ 
+    
+
+     
+
+
+            
+
+
+
 
 def addStudent():
     menuString = "add a new student"

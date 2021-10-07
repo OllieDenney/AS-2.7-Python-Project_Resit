@@ -125,9 +125,28 @@ def addCredits():
             validPrint = 1
         else:
             break
-    print("process complete")
+    addCreditsData = studentData[findStudent - 1]
+    name = (str(addCreditsData[0]))
+    credits = (int(addCreditsData[2]))
+    print(addCreditsData)
+
+
     
- 
+"""
+while True:
+        if credits -  <= 0 or :
+            if validPrint == 1:
+                print("Please enter a number from the list")
+            while True:
+                try:
+                    findStudent = int(input("Enter the number of the student:"))
+                    break
+                except ValueError:
+                    print("Please enter a number from the list")
+            validPrint = 1
+        else:
+            break
+"""
     
 
      
@@ -141,7 +160,44 @@ def addCredits():
 def addStudent():
     menuString = "add a new student"
     menuReturnQuery(menuString)
-    print("yay")
+    addStudentValidation()
+
+def addStudentValidation():
+    newStudentData = []
+    studentLevel = 0
+    studentCredits = 0
+    validPrint = 0
+    studentName = input("Enter Students Name: ").lower()
+    newStudentData.append(studentName)
+    while True:
+        if studentLevel <= 0 or studentLevel >= 4:
+            if validPrint == 1:
+                print("Please enter a NCEA level between 1 and 3")
+            while True:
+                try:
+                    studentLevel = int(input("Enter Students NCEA Level: "))
+                    break
+                except ValueError:
+                    print("Please enter a NCEA level between 1 and 3")
+            validPrint = 1
+        else:
+            break
+    newStudentData.append(studentLevel)
+    studentCredits = input("Enter the Amount of Credits the Student Has: ").lower()
+    newStudentData.append(studentCredits)
+    print("Data:",newStudentData)
+    while True:
+        menuValid = input("Is This Data Correct? ").lower()
+        if menuValid == "no":
+            print("Restarting Add Student Process")
+            addStudentValidation()
+        elif menuValid == "yes":
+            break
+        else:
+            print("Please enter [yes] or [no]")
+    studentData.append(newStudentData)
+    print("Student Data has been added")
+    print(studentData)
 
 def removeStudents():
     menuString = "remove a student"

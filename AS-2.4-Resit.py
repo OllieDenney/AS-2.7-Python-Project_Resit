@@ -165,7 +165,6 @@ def addStudent():
 def addStudentValidation():
     newStudentData = []
     studentLevel = 0
-    studentCredits = 0
     validPrint = 0
     studentName = input("Enter Students Name: ").lower()
     newStudentData.append(studentName)
@@ -183,7 +182,22 @@ def addStudentValidation():
         else:
             break
     newStudentData.append(studentLevel)
-    studentCredits = input("Enter the Amount of Credits the Student Has: ").lower()
+    
+    studentCredits = 0
+    validPrint = 0
+    while True:
+        if studentCredits <= 0:
+            if validPrint == 1:
+                print("Please enter an amount greater than 0")
+            while True:
+                try:
+                    studentCredits = int(input("Enter the amount of credits this student has: "))
+                    break
+                except ValueError:
+                    print("Please enter an integer")
+            validPrint = 1
+        else:
+            break
     newStudentData.append(studentCredits)
     print("Data:",newStudentData)
     while True:
@@ -197,7 +211,8 @@ def addStudentValidation():
             print("Please enter [yes] or [no]")
     studentData.append(newStudentData)
     print("Student Data has been added")
-    print(studentData)
+    menuString = "remain in program"
+    menuReturnQuery(menuString)
 
 def removeStudents():
     menuString = "remove a student"

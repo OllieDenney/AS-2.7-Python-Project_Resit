@@ -4,6 +4,8 @@ studentData = [
     ["john", 1, 70], ["sam", 2, 66], ["elise", 1, 36], ["zoe", 1, 84], ["Max", 2, 36], ["name2", 3, 36], ["name", 2, 86], ["Greg", 3, 96]
 ]
 
+PRINT_STATEMENTS = ["Please enter a number greater than 0", "Please enter a number from the list", "Sorry that item does not exist", "Please enter a NCEA level between 1 and 3", "remain in program"]
+
 def start():
     print("--------------")
     print("NCEA INTERFACE")
@@ -53,7 +55,7 @@ def totalSummary():
         print("• ", studentData[i][0], ", NCEA Level", studentData[i][1], ",", studentData[i][2], "Credits")
     while True:
         time.sleep(5)
-        menuString = "remain in program"
+        menuString = PRINT_STATEMENTS[4]
         menuReturnQuery(menuString)
     
 
@@ -101,55 +103,55 @@ def passSummary():
         credits = (int(levelThreeList[i][2]))
         level = (int(levelThreeList[i][1]))
         print(name, "will pass level",level , "with", credits, "credits")
-    menuString = "remain in program"
+    menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)
 
 def addCredits():
-    menuString = "add credits to student data"
+    menuString = "add credits to a students NCEA data"
     menuReturnQuery(menuString)
-    for i in range(len(studentData)):
-        name = (str(studentData[i][0]))
-        print(i + 1, name)
-    findStudent = -1
+    num = 1
+    for i in studentData:
+        print(num, i[0])
+        num += 1
+    while True:
+      try:
+        studentDataItem = 0
+        validPrint = 0
+        while True:
+            if studentDataItem <= 0:
+                if validPrint == 1:
+                    print(PRINT_STATEMENTS[1])
+                while True:
+                    try:
+                        studentDataItem = int(input("Enter the number of the student you want to add credits to: "))
+                        break
+                    except ValueError:
+                        print(PRINT_STATEMENTS[1])
+                validPrint = 1
+            else:
+                break 
+        break
+      except IndexError:
+        print('Sorry that item does not exist')
+    addCreditNum = 0
     validPrint = 0
     while True:
-        if findStudent <= 0 or findStudent > len(studentData):
+        if addCreditNum <= 0:
             if validPrint == 1:
-                print("Please enter a number from the list")
+                print(PRINT_STATEMENTS[0])
             while True:
                 try:
-                    findStudent = int(input("Enter the number of the student:"))
+                    addCreditNum = int(input("Enter the amount of credits you would like to add: "))
                     break
                 except ValueError:
-                    print("Please enter a number from the list")
+                    print(PRINT_STATEMENTS[0])
             validPrint = 1
         else:
             break
-    addCreditsData = studentData[findStudent - 1]
-    name = (str(addCreditsData[0]))
-    credits = (int(addCreditsData[2]))
-    print(addCreditsData)
 
-
-    
-"""
-while True:
-        if credits -  <= 0 or :
-            if validPrint == 1:
-                print("Please enter a number from the list")
-            while True:
-                try:
-                    findStudent = int(input("Enter the number of the student:"))
-                    break
-                except ValueError:
-                    print("Please enter a number from the list")
-            validPrint = 1
-        else:
-            break
-"""
-    
-
-     
+    print("Student was removed from the list")
+    menuString = PRINT_STATEMENTS[4]
+    menuReturnQuery(menuString)
 
 
             
@@ -188,13 +190,13 @@ def addStudentValidation():
     while True:
         if studentCredits <= 0:
             if validPrint == 1:
-                print("Please enter an amount greater than 0")
+                print(PRINT_STATEMENTS[0])
             while True:
                 try:
                     studentCredits = int(input("Enter the amount of credits this student has: "))
                     break
                 except ValueError:
-                    print("Please enter an integer")
+                    print(PRINT_STATEMENTS[0])
             validPrint = 1
         else:
             break
@@ -211,13 +213,42 @@ def addStudentValidation():
             print("Please enter [yes] or [no]")
     studentData.append(newStudentData)
     print("Student Data has been added")
-    menuString = "remain in program"
+    menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)
 
 def removeStudents():
     menuString = "remove a student"
     menuReturnQuery(menuString)
-    print("yay")
+    num = 1
+    for i in studentData:
+        print(num, i[0])
+        num += 1
+    while True:
+      try:
+        studentDataItem = 0
+        validPrint = 0
+        while True:
+            if studentDataItem <= 0:
+                if validPrint == 1:
+                    print(PRINT_STATEMENTS[1])
+                while True:
+                    try:
+                        studentDataItem = int(input("Enter the number of the student you want to remove: "))
+                        break
+                    except ValueError:
+                        print(PRINT_STATEMENTS[1])
+                validPrint = 1
+            else:
+                break 
+        studentData.pop(studentDataItem - 1)  
+        break
+      except IndexError:
+        print('Sorry that item does not exist')
+    print("Student was removed from the list")
+    menuString = PRINT_STATEMENTS[4]
+    menuReturnQuery(menuString)
+
+    
 
 def endProgram():
     menuString = "end program"

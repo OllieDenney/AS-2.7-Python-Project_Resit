@@ -106,7 +106,7 @@ def passSummary():
     menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)
 
-def addCredits():
+def addCredits(): #Having Problems with indexError, not too sure why
     menuString = "add credits to a students NCEA data"
     menuReturnQuery(menuString)
     num = 1
@@ -114,11 +114,10 @@ def addCredits():
         print(num, i[0])
         num += 1
     while True:
-      try:
         studentDataItem = 0
         validPrint = 0
         while True:
-            if studentDataItem <= 0:
+            if studentDataItem <= 0 or studentDataItem > len(studentData):
                 if validPrint == 1:
                     print(PRINT_STATEMENTS[1])
                 while True:
@@ -131,8 +130,7 @@ def addCredits():
             else:
                 break 
         break
-      except IndexError:
-        print('Sorry that item does not exist')
+
     addCreditNum = 0
     validPrint = 0
     while True:
@@ -148,7 +146,9 @@ def addCredits():
             validPrint = 1
         else:
             break
-
+    studentDataItem = studentDataItem - 1
+    studentData[studentDataItem][2] += addCreditNum
+    print(studentData[studentDataItem])
     print("Student was removed from the list")
     menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)

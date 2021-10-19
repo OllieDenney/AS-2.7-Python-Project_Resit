@@ -1,10 +1,18 @@
 import time
 
 studentData = [
-    ["john", 1, 70], ["sam", 2, 66], ["elise", 1, 36], ["zoe", 1, 84], ["Max", 2, 36], ["name2", 3, 36], ["name", 2, 86], ["Greg", 3, 96]
+    ["john", 1, 70], ["sam", 2, 66], ["elise", 1, 36], ["zoe", 1, 84],
+    ["Max", 2, 36],  ["name2", 3, 36], ["name", 2, 86], ["Greg", 3, 96]
 ]
 
-PRINT_STATEMENTS = ["Please enter a number greater than 0", "Please enter a number from the list", "Sorry that item does not exist", "Please enter a NCEA level between 1 and 3", "remain in program"]
+PRINT_STATEMENTS = [
+    "Please enter a number greater than 0",
+    "Please enter a number from the list",
+    "Sorry that item does not exist",
+    "Please enter a NCEA level between 1 and 3",
+    "remain in program"
+]
+
 
 def start():
     print("--------------")
@@ -20,7 +28,9 @@ def start():
     print("[6] - End Program")
     while True:
         try:
-            menuanswer = int(input("Enter the number of the menu item you would like to go to: "))
+            menuanswer = int(input(
+                "Enter the number of the menu item you would like to go to: "
+                ))
             break
         except ValueError:
             print("Please enter an integer between 1 and 7")
@@ -44,9 +54,10 @@ def start():
         endProgram()
     else:
         print("Enter an integer between 1 and 7")
-        print('\033c')  #Clears everything outputted above it
+        print('\033c')  # Clears everything outputted above it
         print('\x1bc')
         start()
+
 
 def totalSummary():
     menuString = "create a total summary"
@@ -57,7 +68,7 @@ def totalSummary():
         time.sleep(5)
         menuString = PRINT_STATEMENTS[4]
         menuReturnQuery(menuString)
-    
+
 
 def passSummary():
     menuString = "create a pass summary"
@@ -76,37 +87,38 @@ def passSummary():
             levelThreeList.append(studentData[i])
             print(levelThreeList)
         print(levelOneList)
-        print(levelTwoList) #Console statement
+        print(levelTwoList)  # Console statement
         print(levelThreeList)
         for i in range(len(levelOneList)):
             if levelOneList[i][2] < 80:
-                levelOneList.pop(i) 
+                levelOneList.pop(i)
         for i in range(len(levelTwoList)):
             if levelTwoList[i][2] < 60:
-                levelTwoList.pop(i) 
+                levelTwoList.pop(i)
         for i in range(len(levelThreeList)):
             if levelThreeList[i][2] < 60:
-                levelThreeList.pop(i) 
+                levelThreeList.pop(i)
     passList = []
     for i in range(len(levelOneList)):
         name = (str(levelOneList[i][0]))
         credits = (int(levelOneList[i][2]))
         level = (int(levelOneList[i][1]))
-        print(name, "will pass level",level , "with", credits, "credits")
+        print(name, "will pass level", level, "with", credits, "credits")
     for i in range(len(levelTwoList)):
         name = (str(levelTwoList[i][0]))
         credits = (int(levelTwoList[i][2]))
         level = (int(levelTwoList[i][1]))
-        print(name, "will pass level",level , "with", credits, "credits")
+        print(name, "will pass level", level, "with", credits, "credits")
     for i in range(len(levelThreeList)):
         name = (str(levelThreeList[i][0]))
         credits = (int(levelThreeList[i][2]))
         level = (int(levelThreeList[i][1]))
-        print(name, "will pass level",level , "with", credits, "credits")
+        print(name, "will pass level", level, "with", credits, "credits")
     menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)
 
-def addCredits(): #Having Problems with indexError, not too sure why
+
+def addCredits():
     menuString = "add credits to a students NCEA data"
     menuReturnQuery(menuString)
     num = 1
@@ -128,9 +140,8 @@ def addCredits(): #Having Problems with indexError, not too sure why
                         print(PRINT_STATEMENTS[1])
                 validPrint = 1
             else:
-                break 
+                break
         break
-
     addCreditNum = 0
     validPrint = 0
     while True:
@@ -139,7 +150,9 @@ def addCredits(): #Having Problems with indexError, not too sure why
                 print(PRINT_STATEMENTS[0])
             while True:
                 try:
-                    addCreditNum = int(input("Enter the amount of credits you would like to add: "))
+                    addCreditNum = int(input(
+                        "Enter the amount of credits you would like to add: "
+                        ))
                     break
                 except ValueError:
                     print(PRINT_STATEMENTS[0])
@@ -154,15 +167,11 @@ def addCredits(): #Having Problems with indexError, not too sure why
     menuReturnQuery(menuString)
 
 
-            
-
-
-
-
 def addStudent():
     menuString = "add a new student"
     menuReturnQuery(menuString)
     addStudentValidation()
+
 
 def addStudentValidation():
     newStudentData = []
@@ -184,7 +193,6 @@ def addStudentValidation():
         else:
             break
     newStudentData.append(studentLevel)
-    
     studentCredits = 0
     validPrint = 0
     while True:
@@ -193,7 +201,9 @@ def addStudentValidation():
                 print(PRINT_STATEMENTS[0])
             while True:
                 try:
-                    studentCredits = int(input("Enter the amount of credits this student has: "))
+                    studentCredits = int(input(
+                        "Enter the amount of credits this student has: "
+                        ))
                     break
                 except ValueError:
                     print(PRINT_STATEMENTS[0])
@@ -201,7 +211,7 @@ def addStudentValidation():
         else:
             break
     newStudentData.append(studentCredits)
-    print("Data:",newStudentData)
+    print("Data:", newStudentData)
     while True:
         menuValid = input("Is This Data Correct? ").lower()
         if menuValid == "no":
@@ -216,6 +226,7 @@ def addStudentValidation():
     menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)
 
+
 def removeStudents():
     menuString = "remove a student"
     menuReturnQuery(menuString)
@@ -224,38 +235,40 @@ def removeStudents():
         print(num, i[0])
         num += 1
     while True:
-      try:
-        studentDataItem = 0
-        validPrint = 0
-        while True:
-            if studentDataItem <= 0:
-                if validPrint == 1:
-                    print(PRINT_STATEMENTS[1])
-                while True:
-                    try:
-                        studentDataItem = int(input("Enter the number of the student you want to remove: "))
-                        break
-                    except ValueError:
+        try:
+            studentDataItem = 0
+            validPrint = 0
+            while True:
+                if studentDataItem <= 0:
+                    if validPrint == 1:
                         print(PRINT_STATEMENTS[1])
-                validPrint = 1
-            else:
-                break 
-        studentData.pop(studentDataItem - 1)  
-        break
-      except IndexError:
-        print('Sorry that item does not exist')
+                    while True:
+                        try:
+                            studentDataItem = int(input(
+                                "Enter the number of the student you want to remove: "
+                            ))
+                            break
+                        except ValueError:
+                            print(PRINT_STATEMENTS[1])
+                    validPrint = 1
+                else:
+                    break
+            studentData.pop(studentDataItem - 1)
+            break
+        except IndexError:
+            print('Sorry that item does not exist')
     print("Student was removed from the list")
     menuString = PRINT_STATEMENTS[4]
     menuReturnQuery(menuString)
 
-    
 
 def endProgram():
     menuString = "end program"
     menuReturnQuery(menuString)
-    print('\033c')  #Clears everything outputted above it
+    print('\033c')  # Clears everything outputted above it
     print('\x1bc')
     print("Ended Program")
+
 
 def menuReturnQuery(menuString):
     if menuString == "remain in program":
@@ -263,9 +276,11 @@ def menuReturnQuery(menuString):
     else:
         queryString = "Are you sure"
     while True:
-        menuValid = input("{} you want to {}: ".format(queryString, menuString)).lower()
+        menuValid = input(
+            "{} you want to {}: ".format(queryString, menuString)
+            ).lower()
         if menuValid == "no":
-            print('\033c')  #Clears everything outputted above it
+            print('\033c')  # Clears everything outputted above it
             print('\x1bc')
             start()
         elif menuValid == "yes" and menuString != "remain in program":
@@ -276,6 +291,5 @@ def menuReturnQuery(menuString):
         else:
             print("Please enter [yes] or [no]")
     return
-
 
 start()

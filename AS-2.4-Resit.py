@@ -1,20 +1,22 @@
 import time
+# ----------- Note: ------------
+# IV stands for Input Validation
 
-studentData = [
+studentData = [ # (5-8) Default student data
     ["john", 1, 70], ["sam", 2, 66], ["elise", 1, 36], ["zoe", 1, 84],
     ["Max", 2, 36],  ["name2", 3, 36], ["name", 2, 86], ["Greg", 3, 96]
 ]
 
-PRINT_STATEMENTS = [
+PRINT_STATEMENTS = [ # (10-16) Print statement dictionary
     "Please enter a number greater than 0",
     "Please enter a number from the list",
     "Sorry that item does not exist",
     "Please enter a NCEA level between 1 and 3",
-    "remain in program"
+    "remain in program (enter no to return menu)"
 ]
 
 
-def start():
+def start(): # Menu Function
     print("--------------")
     print("NCEA INTERFACE")
     print("--------------")
@@ -26,46 +28,46 @@ def start():
     print("[4] - Add New Student")
     print("[5] - Remove Student")
     print("[6] - End Program")
-    while True:
+    while True: # (31-35) Asks the user which function they would like to go to
         try:
-            menuanswer = int(input(
+            menuAnswer = int(input(
                 "Enter the number of the menu item you would like to go to: "
                 ))
             break
-        except ValueError:
+        except ValueError: # IV for preventing alphabetical characters being entered
             print("Please enter an integer between 1 and 7")
-    if menuanswer == 1:
+    if menuAnswer == 1:
         print("Total NCEA Summary selected")
         totalSummary()
-    elif menuanswer == 2:
+    elif menuAnswer == 2:
         print("NCEA Pass Summary selected")
         passSummary()
-    elif menuanswer == 3:
+    elif menuAnswer == 3:
         print("Add Credit to Student Data selected")
         addCredits()
-    elif menuanswer == 4:
+    elif menuAnswer == 4:
         print("Add New Student selected")
         addStudent()
-    elif menuanswer == 5:
+    elif menuAnswer == 5:
         print("Remove Student selected")
         removeStudents()
-    elif menuanswer == 6:
+    elif menuAnswer == 6:
         print("End Program selected")
         endProgram()
     else:
-        print("Enter an integer between 1 and 7")
-        print('\033c')  # Clears everything outputted above it
+        print('\033c')  # (58-59) Clears everything outputted above it
         print('\x1bc')
-        start()
+        print("Enter an integer between 1 and 6") 
+        start() # Restarts the program
 
 
 def totalSummary():
     menuString = "create a total summary"
     menuReturnQuery(menuString)
-    for i in range(len(studentData)):
+    for i in range(len(studentData)): # (67-68) Prints out all students data
         print("• ", studentData[i][0], ", NCEA Level", studentData[i][1], ",", studentData[i][2], "Credits")
     while True:
-        time.sleep(5)
+        time.sleep(5) # Sleeps the program so the user can process data
         menuString = PRINT_STATEMENTS[4]
         menuReturnQuery(menuString)
 
@@ -76,20 +78,14 @@ def passSummary():
     levelOneList = []
     levelTwoList = []
     levelThreeList = []
-    for i in range(len(studentData)):
+    for i in range(len(studentData)): # (81-87) Seperates student data into NCEA level lists
         if studentData[i][1] == 1:
             levelOneList.append(studentData[i])
-            print(levelOneList)
         elif studentData[i][1] == 2:
             levelTwoList.append(studentData[i])
-            print(levelTwoList)
         elif studentData[i][1] == 3:
             levelThreeList.append(studentData[i])
-            print(levelThreeList)
-        print(levelOneList)
-        print(levelTwoList)  # Console statement
-        print(levelThreeList)
-        for i in range(len(levelOneList)):
+        for i in range(len(levelOneList)): # (88-96) Removes student who have less credits than required
             if levelOneList[i][2] < 80:
                 levelOneList.pop(i)
         for i in range(len(levelTwoList)):
@@ -98,8 +94,7 @@ def passSummary():
         for i in range(len(levelThreeList)):
             if levelThreeList[i][2] < 60:
                 levelThreeList.pop(i)
-    passList = []
-    for i in range(len(levelOneList)):
+    for i in range(len(levelOneList)): # (97-111) Formats and prints the students that have passed each NCEA level
         name = (str(levelOneList[i][0]))
         credits = (int(levelOneList[i][2]))
         level = (int(levelOneList[i][1]))
@@ -115,17 +110,17 @@ def passSummary():
         level = (int(levelThreeList[i][1]))
         print(name, "will pass level", level, "with", credits, "credits")
     menuString = PRINT_STATEMENTS[4]
-    menuReturnQuery(menuString)
+    menuReturnQuery(menuString) # Return to menu function
 
 
 def addCredits():
     menuString = "add credits to a students NCEA data"
     menuReturnQuery(menuString)
     num = 1
-    for i in studentData:
+    for i in studentData: # (120-122) Prints a list of students
         print(num, i[0])
         num += 1
-    while True:
+    while True: # (123-139) Asks the user which student they would like to add credits to, includes alphabetical character IV and list range IV
         studentDataItem = 0
         validPrint = 0
         while True:
@@ -144,7 +139,7 @@ def addCredits():
         break
     addCreditNum = 0
     validPrint = 0
-    while True:
+    while True: # (123-139) Asks the user how many credits they would like to add, includes alphabetical character IV and interger range IV
         if addCreditNum <= 0:
             if validPrint == 1:
                 print(PRINT_STATEMENTS[0])
@@ -160,14 +155,13 @@ def addCredits():
         else:
             break
     studentDataItem = studentDataItem - 1
-    studentData[studentDataItem][2] += addCreditNum
-    print(studentData[studentDataItem])
-    print("Student was removed from the list")
+    studentData[studentDataItem][2] += addCreditNum # Adds new data to the student's data
+    print("New Data is: ", studentData[studentDataItem]) # Shows user the new data that has been added
     menuString = PRINT_STATEMENTS[4]
-    menuReturnQuery(menuString)
+    menuReturnQuery(menuString) # Return to menu function
 
 
-def addStudent():
+def addStudent(): # This function is used to prevent the 'menuReturnQuery' function from repeating if the 'addStudentValidation' is repeated
     menuString = "add a new student"
     menuReturnQuery(menuString)
     addStudentValidation()
@@ -271,21 +265,21 @@ def endProgram():
 
 
 def menuReturnQuery(menuString):
-    if menuString == "remain in program":
+    if menuString == "remain in program (enter no to return menu)":
         queryString = "Do"
     else:
         queryString = "Are you sure"
     while True:
         menuValid = input(
-            "{} you want to {}: ".format(queryString, menuString)
+            "{} you want to {}: [yes]/[no] ".format(queryString, menuString)
             ).lower()
         if menuValid == "no":
             print('\033c')  # Clears everything outputted above it
             print('\x1bc')
             start()
-        elif menuValid == "yes" and menuString != "remain in program":
+        elif menuValid == "yes" and menuString != "remain in program (enter no to return menu)":
             break
-        elif menuValid == "yes" and menuString == "remain in program":
+        elif menuValid == "yes" and menuString == "remain in program (enter no to return menu)":
             time.sleep(5)
             menuReturnQuery(menuString)
         else:

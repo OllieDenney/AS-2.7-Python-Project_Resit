@@ -34,7 +34,7 @@ def start(): # Menu Function
                 "Enter the number of the menu item you would like to go to: "
                 ))
             break
-        except ValueError: # IV for preventing alphabetical characters being entered
+        except ValueError: # IV for preventing letters being entered
             print("Please enter an integer between 1 and 7")
     if menuAnswer == 1:
         print("Total NCEA Summary selected")
@@ -120,7 +120,7 @@ def addCredits():
     for i in studentData: # (120-122) Prints a list of students
         print(num, i[0])
         num += 1
-    while True: # (123-139) Asks the user which student they would like to add credits to, includes alphabetical character IV and list range IV
+    while True: # (123-139) Asks the user which student they would like to add credits to, includes IV to prevent letters and intergers outside of the required range
         studentDataItem = 0
         validPrint = 0
         while True:
@@ -139,7 +139,7 @@ def addCredits():
         break
     addCreditNum = 0
     validPrint = 0
-    while True: # (123-139) Asks the user how many credits they would like to add, includes alphabetical character IV and interger range IV
+    while True: # (123-139) Asks the user how many credits they would like to add, includes IV to prevent letters and intergers outside of the required range
         if addCreditNum <= 0:
             if validPrint == 1:
                 print(PRINT_STATEMENTS[0])
@@ -168,12 +168,12 @@ def addStudent(): # This function is used to prevent the 'menuReturnQuery' funct
 
 
 def addStudentValidation():
-    newStudentData = []
+    newStudentData = [] # (171-173) Resets all lists and variables
     studentLevel = 0
     validPrint = 0
-    studentName = input("Enter Students Name: ").lower()
-    newStudentData.append(studentName)
-    while True:
+    studentName = input("Enter Students Name: ").lower() # Asks user to input name, no IV as names are dynamic
+    newStudentData.append(studentName) # Adds name to list of new data
+    while True: # (176-188) Asks user to input NCEA level, IV prevents letters and intergers outside of the required range
         if studentLevel <= 0 or studentLevel >= 4:
             if validPrint == 1:
                 print("Please enter a NCEA level between 1 and 3")
@@ -189,7 +189,7 @@ def addStudentValidation():
     newStudentData.append(studentLevel)
     studentCredits = 0
     validPrint = 0
-    while True:
+    while True: # (192-206) Asks user to input the amount of credits a student has, IV prevents letters and negative integers
         if studentCredits <= 0:
             if validPrint == 1:
                 print(PRINT_STATEMENTS[0])
@@ -206,7 +206,7 @@ def addStudentValidation():
             break
     newStudentData.append(studentCredits)
     print("Data:", newStudentData)
-    while True:
+    while True: # (209-217) Asks user if the inputted data is correct, if not the function will restart
         menuValid = input("Is This Data Correct? ").lower()
         if menuValid == "no":
             print("Restarting Add Student Process")
@@ -215,19 +215,25 @@ def addStudentValidation():
             break
         else:
             print("Please enter [yes] or [no]")
-    studentData.append(newStudentData)
+    studentData.append(newStudentData) # If the user deems the new data correct it will be added to the total student data
     print("Student Data has been added")
     menuString = PRINT_STATEMENTS[4]
-    menuReturnQuery(menuString)
+    menuReturnQuery(menuString) # Return to menu function
 
 
 def removeStudents():
     menuString = "remove a student"
     menuReturnQuery(menuString)
     num = 1
-    for i in studentData:
+    for i in studentData: # (228-230) Prints out a list of all student data 
         print(num, i[0])
         num += 1
+    """
+    (231-253) Asks the user which student they would like to be removed from the
+    total student data list. IV prevents letters from being entered, integers
+    being entered that are outside of the required range, and prevents the program
+    from removing data outside of the list range.
+    """
     while True:
         try:
             studentDataItem = 0
@@ -253,7 +259,7 @@ def removeStudents():
             print('Sorry that item does not exist')
     print("Student was removed from the list")
     menuString = PRINT_STATEMENTS[4]
-    menuReturnQuery(menuString)
+    menuReturnQuery(menuString) # Return to menu function
 
 
 def endProgram():
@@ -261,16 +267,16 @@ def endProgram():
     menuReturnQuery(menuString)
     print('\033c')  # Clears everything outputted above it
     print('\x1bc')
-    print("Ended Program")
+    print("Ended Program") # End of program
 
 
 def menuReturnQuery(menuString):
-    if menuString == "remain in program (enter no to return menu)":
+    if menuString == "remain in program (enter no to return menu)": # This 'if' statement takes the menuString passed from the previous function and checks which grammer needs to be used
         queryString = "Do"
     else:
         queryString = "Are you sure"
-    while True:
-        menuValid = input(
+    while True: # This loop asks the user what they would like to do, from the input the program decides if the loop shall be breaked or repeated with help from the data given
+        menuValid = input( 
             "{} you want to {}: [yes]/[no] ".format(queryString, menuString)
             ).lower()
         if menuValid == "no":
@@ -286,4 +292,4 @@ def menuReturnQuery(menuString):
             print("Please enter [yes] or [no]")
     return
 
-start()
+start() # Start of the program
